@@ -1,24 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+// src/App.js
+import React, { useState } from 'react';
+import FileUpload from './components/FileUpload';
+import DeepfakeAnalysis from './components/DeepfakeAnalysis';
+import { Container, Typography } from '@material-ui/core';
 
 function App() {
+  const [analysisResult, setAnalysisResult] = useState(null);
+
+  const handleFileAnalyzed = (result) => {
+    setAnalysisResult(result);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container maxWidth="md">
+      <Typography variant="h3" component="h1" gutterBottom>
+        Deepfake Detector
+      </Typography>
+      <FileUpload onFileAnalyzed={handleFileAnalyzed} />
+      {analysisResult && <DeepfakeAnalysis result={analysisResult} />}
+    </Container>
   );
 }
 
